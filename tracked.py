@@ -20,11 +20,11 @@ class Resource:
         return self._get_returned(response)
 
     def _post(self, url, data):
-        response = self._session.post(self._getURL(url), json.dumps(data))
+        response = self._session.post(self._getURL(url), data)
         return self._get_returned(response)
 
     def _put(self, url, data):
-        response = self._session.put(self._getURL(url), json.dumps(data))
+        response = self._session.put(self._getURL(url), data)
         return self._get_returned(response)
 
     def _delete(self, url):
@@ -64,9 +64,9 @@ class Todos(Resource):
             todos += self.list(basecamp_project_id, todo_type, page_id+1)
         return todos
 
-    def update(self, basecamp_project_id, basecamp_todo_id, new_position: int, lists: list):
+    def update(self, basecamp_project_id, basecamp_todo_id, new_position: int, list_name: str):
         return self._put("/projects/{0}/todos/{1}".format(basecamp_project_id, basecamp_todo_id),
-                         data={"new_position": new_position, "lists": lists})
+                         data={"new_position": new_position, "list_name": list_name})
 
 
 class Labels(Resource):
